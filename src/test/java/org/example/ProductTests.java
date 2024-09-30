@@ -12,21 +12,21 @@ public class ProductTests extends BaseTest {
     @Test
     public void getProductsList()
     {
-        List<Product> ProdList = RestAssured.given()
-                .get("products")
-                .then().log().all()
-                .assertThat().statusCode(200)
-                .extract().as(new TypeRef<>() {});
+        RestAssured.given()
+            .get("products")
+            .then().log().all()
+            .assertThat().statusCode(200)
+            .extract().as(Product[].class);
     }
 
     @Test
     public void getExistingProduct()
     {
-        List<Product> Prod = RestAssured.given()
-                .get("products/" + 1)
-                .then().log().all()
-                .assertThat().statusCode(200)
-                .extract().as(new TypeRef<>() {});
+        RestAssured.given()
+            .get("products/" + 1)
+            .then().log().all()
+            .assertThat().statusCode(200)
+            .extract().as(Product[].class);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class ProductTests extends BaseTest {
     {
         int id = 123423423;
         RestAssured.given()
-                .get("products/" + id)
-                .then().log().all().assertThat().statusCode(404);
+            .get("products/" + id)
+            .then().log().all().assertThat().statusCode(404);
     }
 }
